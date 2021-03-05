@@ -54,9 +54,10 @@ app.get("/weather",(req,res)=>{
                 return res.send({error})
             }
             res.send({
-                forecast: weatherData,
+                forecast: weatherData.response,
                 location: location,
-                address: req.query.address
+                address: req.query.address,
+                imageURL: weatherData.imageURL
             })
 
         })

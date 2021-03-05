@@ -1,5 +1,6 @@
 const request = require("request")
-
+const fs = require('fs')
+const fetch = require('node-fetch')
 
 
 const forecast = (latitude,longitude,callback)=>{
@@ -10,8 +11,10 @@ const forecast = (latitude,longitude,callback)=>{
         } else if(response.body.error) {
             callback("Unable to find location", undefined)
         } else {
-            callback(undefined, 
-                response.body.current.weather_descriptions[0]+". It is currently " +response.body.current.temperature+" degrees out. It feels like "+response.body.current.feelslike+" degrees."
+            callback(undefined, {
+                response :response.body.current.weather_descriptions[0]+". It is currently " +response.body.current.temperature+" degrees out. It feels like "+response.body.current.feelslike+" degrees.",
+                imageURL: response.body.current.weather_icons[0]
+            }
             )
         }
     })
